@@ -1,0 +1,5 @@
+Debugger runs on the build machine and communicates with GDBSERVER on the target to control the execution of the program.
+
+On the target, the gdbserver utility attaches to a process or starts a process, then listens on an arbitrary TCP/IP port (:2345) for a gdb frontend.
+
+On the host, gdb connects to gdbserver with necessary debug information of the same process and controls the process. 

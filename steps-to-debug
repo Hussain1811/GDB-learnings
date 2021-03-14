@@ -1,0 +1,27 @@
+Give a bitbake of all your components with "debug" enabled in master cmake.
+
+1)Go to debug configurations in eclipse
+2)Give the process/binary(say sdc_ctl) path under "Main" => select from image folder in oe.. This binary should be compiled in debug mode so as to have all debug symbols.
+
+3)Give the GDB debugger path in "Main" under "Debugger" as /opt/tooling/codesourcery/MGC-2018.05-7-arm-gcc-7.3.1/Sourcery_CodeBench_for_AArch64/bin/aarch64-linux-gnu-gdb
+
+Gen4 => AArch64
+
+4)Give the shared library path in "Shared Libraries" under "Debugger" => select from image folder in oe..
+
+Give a check on "load shared library symbols automatically"
+
+5)Give the port number(say 1000) and the host name/IP address as the address of the target
+
+6)Check the check box on "disable auto build".
+
+6)Execute /opt/platform/install-gdb.sh so as to install gdbserver  on target
+
+7)In target, execute as below:
+gdbserver  host_name:1000 "binary name"
+gdbserver  host_name:1000 sdc_ctl -v encrypt -m RSA_OAEP_SHA384_MGF1SHA384 -k 1000 -f t100 -o enc384_1k
+
+8)if gdb gets stuck, then kill with "kill -9 PID"
+
+9)Use F6 for stepping over and F5 for stepping into. If you add a breakpoint and hit F8(i.e. execute),then the flow will come till the added breakpoint.
+

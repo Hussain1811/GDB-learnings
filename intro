@@ -1,0 +1,8 @@
+It is a simpler debugger available in many OS/RTOS and supports many languages such as C,C++ etc.
+OPTEE-OS doesn't have GDB.
+
+Hardware breakpoint => can see RAM/FLASH memory values
+Software breakpoint
+
+It is an effective tool to be used for userspace components. GDB is not meant to be used for kernel debugging.
+

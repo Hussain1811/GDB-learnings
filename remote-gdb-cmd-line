@@ -1,0 +1,53 @@
+On Host
+
+1)Establish a tunnel to remote port 1234: ssh -f -N -L 49154:192.168.2.52:1234 sadiqhm@rbei_adit_proxy
+
+2)Compile your sources to have debug symbols i.e. Give a bitbake of all your components with "debug" enabled in master cmake.  Installing _dbg.ipk doesn't generate artifacts with debug symbols (i.e. non-stripped versions).
+
+3)Copy all artifacts from oe…build/..image to appropriate path in /export/target/
+
+4)Cd to /opt/tooling/codesourcery/MGC-2018.05-7-arm-gcc-7.3.1_j01/Sourcery_CodeBench_for_AArch64/bin
+
+5)Go to gdb console by entering "<gdb_binary>  <binary_path>"
+
+Ex: ./aarch64-linux-gnu-gdb  /export/target/rcar3/i50/RFS1/bin/sdc_ctl
+
+6)set sysroot <sysroot_path>
+Ex: set sysroot /export/target/rcar3/i42/RFS1/
+
+7)set solib-search-path <library_path>
+Ex: set solib-search-path ~/project/rcar/i50/oe-MGC_COS10-rcar-gen3/build/tmp/work/aarch64-mel-linux/adit-sdc/git-sdc_j32-1-gf6eedea-dirty-r0/image/lib64/libsdc.so 
+
+8)set directories <directory_path>
+Ex: set directories ~/project/rcar/i50/sdc/ 
+
+9)b <file_name>:line_number => set breakpoint in a particular file on a particular line
+
+10)target remote :49154 => connect gdb client to the gdbserver in the target
+
+NOTE: Instead of typing steps 6,7,8 all the time, you can put them in ~/.gdbinit. So, GDB will read this file during initialization.
+
+n => to go to next line from breakpoint. It is like step over
+c => continue the execution
+l => lists the code from the breakpoint
+bt => gives the backtrace
+P <variable_name> ==> to print the variable's value at that point of the code
+S => It is like step into. If there are functions, then it will go inside the function also. After the function is done, it will return back to the point.
+
+
+
+On Target
+
+gdbserver :1234 <command_to_execute> => starting a program under gdbserver's control
+
+
+
+Good to Know:
+
+Show remotetimeout ==> will show the time that the connection should take to connect
+
+You can also change above value as below:
+Set remotetimeout 10
+
+
+

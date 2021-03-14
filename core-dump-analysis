@@ -1,0 +1,12 @@
+When an application crashes due to a seg fault, then linux generates a "core file" which 
+can later be used to analyze the status of the crashed application. This is called
+"post mortem analysis".
+
+Core dumps provide a snapshot of the system memory and the process info.
+Core dump is usually found in "cat /proc/sys/kernel/core_pattern".
+
+On the target, use "ulimit -c unlimited" to enable the generation of a core file when a crash occurs.
+if core dumps are not enabled, then "ulimit -c" will return 0.
+
+Later, transfer this core file to the host and run the below command:
+/opt/tooling/codesourcery/MGC-2015.12-138-arm-gcc-5.2.0/Sourcery_CodeBench_for_ARM_Embedded/bin/aarch64-linux-gnu-gdb <your_binary_with_debug_symbols>  <coredump_file>
